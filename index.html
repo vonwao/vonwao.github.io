@@ -6,9 +6,6 @@
 
 		<title>Hammock: Web Programming System</title>
 
-		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
-		<meta name="author" content="Hakim El Hattab">
-
 		<meta name="apple-mobile-web-app-capable" content="yes" />
 		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
@@ -36,29 +33,16 @@
 		<script src="lib/js/html5shiv.js"></script>
 		<![endif]-->
 
-        <!--<style>-->
-            <!--p {-->
-                <!--font-family: Cookie;-->
-                <!--margin-top: 100px;-->
-                <!--margin-bottom: 20px;-->
-            <!--}-->
-            <!--section > p {-->
-                <!--color: red;-->
-                <!--margin-top: 100px;-->
-                <!--margin-bottom: 100px;-->
-            <!--}-->
-        <!--</style>-->
-
     </head>
 
 	<body>
 
 
     <div>
-        <a href="#/home">Home</a>
-        <a href="#/classes">Classes</a>
-        <a href="#/schemas">Schemas</a>
-        <a href="#/modules">Modules</a>
+        <a href="#/home">Home</a> &nbsp;
+        <a href="#/classes">Classes & Schemas</a> &nbsp;
+        <a href="#/modules">Modules</a>  &nbsp;
+        <a href="#/plugins">Plugins & App Templates</a>
     </div>
 
     <div class="reveal">
@@ -77,18 +61,18 @@
                 <!--Blah blah some text-->
             <!--</section>-->
 
-            <!--<section id="home">-->
-                <!--<h1>Hammock</h1>-->
-                <!--<h2>Web Programming System</h2>-->
-            <!--</section>-->
-
             <section id="home">
-                <h2>Why should I care?</h2>
-                <p style="font-size: 72px; font-family: Cookie" class="fragment">
-                    100% Pure Javascript</p>
-                <p style="font-size: 72px; font-family: Cookie" class="fragment">
-                    Declarative/functional/meta programming</p>
-                <p style="font-size: 72px; font-family: Cookie" class="fragment">
+                <h1>Hammock</h1>
+                <h2>Web Programming System</h2>
+            </section>
+
+            <section>
+                <h2>Why should I care?</h2> <br>
+                <p class="fragment">
+                    100% Javascript</p>  <br>
+                <p class="fragment">
+                    Declarative/functional/meta programming</p>  <br>
+                <p class="fragment">
                     Strong typing, smart editor</p>
             </section>
 
@@ -100,77 +84,72 @@
             <!--</section>-->
 
             <section id="concepts">
-                <h2 style="margin-top: 40px; font-size: 90px;">Hammock Concepts:</h2>
-                <ul style="font-size: 40px">
-                    <li style="margin-top: 40px; font-size: 70px;">Classes</li>
-                    <li style="margin-top: 40px; font-size: 70px;">Modules</li>
-                    <li style="margin-top: 40px; font-size: 70px;">Schemas</li>
-                    <li style="margin-top: 40px; font-size: 70px;">Plugins & Shells</li>
+                <!--<h2 style="margin-top: 40px; font-size: 90px;">Hammock Concepts:</h2>-->
+                <h2>Hammock Concepts:</h2> <br>
+                <ul>
+                    <li><h3>Classes & Schemas</h3></li>
+                    <li><h3>Modules</h3></li>
+                    <li><h3>Plugins & App Templates</h3></li>
                 </ul>
             </section>
 
             <!--<object name="foo" type="text/html" data="section-classes.inc"></object>-->
 
             <section id="classes">
-                <h1>Classes</h1>
+                <h2>Classes & Schemas</h2>
             </section>
 
-            <section>
-
-            </section>
-
-            <section>
-                <p>In Hammock, a class is a document that follows the schema of a meta-class.</p>
-                <p>Bear with us for the next few slides!</p>
-            </section>
+            <!--<section>-->
+                <!--<p>In Hammock, a class is a document that follows the schema of a meta-class.</p>-->
+            <!--</section>-->
 
             <section>
-                Instances of classes can be documents in a database, or they can be run-time objects (e.g. a UI component)
+                Unlike Object-Oriented languages, instances of classes can be either documents in a database, or they can be run-time objects (e.g. a UI component)
                 <!--Classes in turn have instances, which can be either run-time objects (for example a UI component)-->
                 <!--or persistent documents (for example a blog post).-->
                 <img src="assets/class_instance.png" style="border: none">
             </section>
 
             <section>
-                You can think of a class is a kind of template for a JSON document, for example:
-                <img src="assets/class_templates.png" style="border: none">
-            </section>
-
-            <section>
-                So what does a meta-class look like? Let's take a look at a simple case, for react classes:
+                As an example, let's look at the meta-class definition for React.js classes:
                 <pre><code>
 {
   "name": "react-meta-class",
   "fields": {
-    "render": { "type": "function", "required": true }
-    "getInitialState": { "type": "function" }
+    "render": { "type": "function", "required": true },
+    "getInitialState": { "type": "function" },
     "componentDidMount": { "type": "function" }
   }
 }
                 </code></pre>
             </section>
 
+            <section>
+                For data classes, you can think of the class as a template for JSON documents, i.e.:
+                <img src="assets/class_templates.png" style="border: none">
+            </section>
+
             <!--------------------------- Schemas -------------------------------->
-            <section id="schemas">
-                <h1>Schemas</h1>
-                a.k.a. Strongly-typed data classes
-            </section>
+            <!--<section id="schemas">-->
+                <!--<h1>Schemas</h1>-->
+                <!--a.k.a. Strongly-typed data classes-->
+            <!--</section>-->
+
+            <!--<section>-->
+                <!--<p>Schemas in Hammock are like strong typing support for JSON documents.</p> <br>-->
+            <!--</section>-->
 
             <section>
-                <p>Schemas in Hammock are like strong typing support for JSON documents.</p>
                 <p>A class has a schema if it implements the schema meta-class,
-                    meaning if it has a "fields" property with one or more fields.</p>
-            </section>
-
-            <section>
-                Let's revisit the example from the last section, let's look at a blog post class definition:
+                    meaning if it has a "fields" property with one or more fields.</p> <br>
+                Take a closer look at this partial definition for a blog post class:
 
 <pre><code>
 {
   name: "post-class",
   fields: {
     title: { type: "string", required: true },
-    category: { type: "select", options: ["main", "business", "tech"] }
+    category: { type: "select", options: ["main", "business", "tech"] },
     state: { type: "select", options: ["draft", "published", "archived"],
              default: "draft" }
   }
@@ -180,9 +159,8 @@
             </section>
 
             <section>
-                <p>Once you define a class, you can use the the Hammock JSON editor to create an instance.</p>
-
-                <p>The editor offers autocomplete support based on the class schema:</p>
+                <p>Once you define a class, you can use the the Hammock JSON editor to create an instance.</p> <br>
+                <p>The editor offers auto-complete support based on the class schema:</p>
                 <img src="assets/json_editor1.png"/>
             </section>
 
@@ -217,26 +195,33 @@
 
             <!--------------------------- MODULES -------------------------------->
             <section id="modules">
-                <h1>Modules</h1>
+                <h2>Modules</h2>
             </section>
 
             <section>
                 <p>Modules in Hammock work similarly as in other languages:</p><br>
                 <ul>
-                <li class="fragment"> They can be used to reuse code across projects. </p>
-                <li class="fragment"> A module can also be deployed as a web app... </li>
-                <li class="fragment"> or it can act as a plugin inside a <a href="#/plugins">App Template</a></li>
+                <li class="fragment"> They can be used to reuse code across projects. </li> <br>
+                <li class="fragment"> A module can also be deployed as a web app </li> <br>
+                <li class="fragment"> ... or it can act as a plugin inside an <a href="#/plugins">App Template</a></li>
                 </ul>
             </section>
 
             <section>
-                <div>There are two ways of creating a module:</div>
-                <div><span style="color: green">Declaratively</span> as a collection of JSON documents or single document</div>
-                <div><b style="color: orange">Programatically</b> using javascript code</div>
+                <p>There's flexibility with how modules are created:</p> <br>
+                <p>Modules can be authored declaratively as JSON objects, or programatically using javascript code.</p> <br>
+                <p>Modules can also be authored with the tools of your choice (in your filesystem), or they can be authored with
+                the built-in editor and stored in a CouchDB database.</p> <br>
+                <p>Eventually, the vision is that all your code could be stored as documents, doing away with the hassles of the filesystem.</p>
             </section>
+            <!--<section>-->
+                <!--<div>There are two ways of creating a module:</div>-->
+                <!--<div><span style="color: green">Declaratively</span> as a collection of JSON documents or single document</div>-->
+                <!--<div><b style="color: orange">Programatically</b> using javascript code</div>-->
+            <!--</section>-->
 
             <section>
-                Hello World example
+                Hello World example:
                 <pre><code>
 Hammock.createModule({
   name: "hello-world",
@@ -251,15 +236,14 @@ Hammock.createModule({
             </section>
 
             <section>
-                A more complex example:
-
-                (this part is under construction)
+                <p>A more complex example:</p>
+                <br><p>(this part is under construction)</p>
                 <!--<pre><code>-->
                 <!--</code></pre>-->
             </section>
 
             <section>
-                The vision is to foster an ecosystem of libraries and plugins to make web programming
+                The vision is to foster an ecosystem of modules and plugins to make web programming
                 <span style="font-weight:bold; color: green">simple</span>
                 and <span style="font-weight:bold; color: blueviolet">fun</span>!
             </section>
@@ -276,14 +260,14 @@ Hammock.createModule({
             </section>
 
             <section>
-                <p>The Dashboard App Template can is an app which can host a bunch of widgets, kind of like:</p> <br>
+                <p>The Dashboard App Template is an app which can host a bunch of widgets, kind of like this:</p> <br>
                 <img src="assets/LionDashboard.png"/>
             </section>
 
 				<section>
-					<h1>THE END</h1>
-					<h3>contact: vonwao@gmail.com</h3>
-					<h3>We don't have a mailing list yet, but you can keep up with us on Facebook: </h3>
+					<h2>THE END</h2>  <br>
+					<p>contact: vonwao@gmail.com (Otto)</p>
+					<p>We don't have a mailing list yet, but you could follow us <br><a href="https://www.facebook.com/pages/Hammock-Programming/277563319119545">on Facebook</a></p>
 				</section>
 
 			</div>
@@ -292,7 +276,6 @@ Hammock.createModule({
 
 		<script src="lib/js/head.min.js"></script>
 		<script src="js/reveal.min.js"></script>
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
 		<script>
 
