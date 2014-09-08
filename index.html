@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Hammock: Web Programming System</title>
+
+		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+		<meta name="author" content="Hakim El Hattab">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+        <link rel="stylesheet" href="css/theme/simple.css" id="theme">
+
+
+        <!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+		<script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = 'css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+
+        <!--<style>-->
+            <!--p {-->
+                <!--font-family: Cookie;-->
+                <!--margin-top: 100px;-->
+                <!--margin-bottom: 20px;-->
+            <!--}-->
+            <!--section > p {-->
+                <!--color: red;-->
+                <!--margin-top: 100px;-->
+                <!--margin-bottom: 100px;-->
+            <!--}-->
+        <!--</style>-->
+
+    </head>
+
+	<body>
+
+
+    <div>
+        <a href="#/home">Home</a>
+        <a href="#/classes">Classes</a>
+        <a href="#/schemas">Schemas</a>
+        <a href="#/modules">Modules</a>
+    </div>
+
+    <div class="reveal">
+
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+
+            <!--------------------------- START -------------------------------->
+
+
+            <!--<section data-markdown>-->
+                <!--# Title-->
+                <!--## Subttile-->
+                <!--### Heading 3-->
+                <!--Blah blah some text-->
+            <!--</section>-->
+
+            <!--<section id="home">-->
+                <!--<h1>Hammock</h1>-->
+                <!--<h2>Web Programming System</h2>-->
+            <!--</section>-->
+
+            <section id="home">
+                <h2>Why should I care?</h2>
+                <p style="font-size: 72px; font-family: Cookie" class="fragment">
+                    100% Pure Javascript</p>
+                <p style="font-size: 72px; font-family: Cookie" class="fragment">
+                    Declarative/functional/meta programming</p>
+                <p style="font-size: 72px; font-family: Cookie" class="fragment">
+                    Strong typing, smart editor</p>
+            </section>
+
+            <!--<section id="home">-->
+                <!--<h1>Why Hammock</h1>-->
+                <!--<div style="font-family: Rancho" class='font-effect-neon'>100% Pure Javascript</div>-->
+                <!--<div style="font-size: 60px; font-family: Rancho" class='font-effect-neon'>Functional programming, powerful meta-programming</div>-->
+                <!--<p style="font-family: 'Gloria Hallelujah', cursive;">Strong Typing, JSON editor</p>-->
+            <!--</section>-->
+
+            <section id="concepts">
+                <h2 style="margin-top: 40px; font-size: 90px;">Hammock Concepts:</h2>
+                <ul style="font-size: 40px">
+                    <li style="margin-top: 40px; font-size: 70px;">Classes</li>
+                    <li style="margin-top: 40px; font-size: 70px;">Modules</li>
+                    <li style="margin-top: 40px; font-size: 70px;">Schemas</li>
+                    <li style="margin-top: 40px; font-size: 70px;">Plugins & Shells</li>
+                </ul>
+            </section>
+
+            <!--<object name="foo" type="text/html" data="section-classes.inc"></object>-->
+
+            <section id="classes">
+                <h1>Classes</h1>
+            </section>
+
+            <section>
+
+            </section>
+
+            <section>
+                <p>In Hammock, a class is a document that follows the schema of a meta-class.</p>
+                <p>Bear with us for the next few slides!</p>
+            </section>
+
+            <section>
+                Instances of classes can be documents in a database, or they can be run-time objects (e.g. a UI component)
+                <!--Classes in turn have instances, which can be either run-time objects (for example a UI component)-->
+                <!--or persistent documents (for example a blog post).-->
+                <img src="assets/class_instance.png" style="border: none">
+            </section>
+
+            <section>
+                You can think of a class is a kind of template for a JSON document, for example:
+                <img src="assets/class_templates.png" style="border: none">
+            </section>
+
+            <section>
+                So what does a meta-class look like? Let's take a look at a simple case, for react classes:
+                <pre><code>
+{
+  "name": "react-meta-class",
+  "fields": {
+    "render": { "type": "function", "required": true }
+    "getInitialState": { "type": "function" }
+    "componentDidMount": { "type": "function" }
+  }
+}
+                </code></pre>
+            </section>
+
+            <!--------------------------- Schemas -------------------------------->
+            <section id="schemas">
+                <h1>Schemas</h1>
+                a.k.a. Strongly-typed data classes
+            </section>
+
+            <section>
+                <p>Schemas in Hammock are like strong typing support for JSON documents.</p>
+                <p>A class has a schema if it implements the schema meta-class,
+                    meaning if it has a "fields" property with one or more fields.</p>
+            </section>
+
+            <section>
+                Let's revisit the example from the last section, let's look at a blog post class definition:
+
+<pre><code>
+{
+  name: "post-class",
+  fields: {
+    title: { type: "string", required: true },
+    category: { type: "select", options: ["main", "business", "tech"] }
+    state: { type: "select", options: ["draft", "published", "archived"],
+             default: "draft" }
+  }
+}
+</code></pre>
+
+            </section>
+
+            <section>
+                <p>Once you define a class, you can use the the Hammock JSON editor to create an instance.</p>
+
+                <p>The editor offers autocomplete support based on the class schema:</p>
+                <img src="assets/json_editor1.png"/>
+            </section>
+
+            <section>
+                <p>Just keep pressing Tab, autocomplete helps you fill in the document. Easy!</p>
+                <img src="assets/json_editor2.png"/>
+                <img src="assets/json_editor3.png"/>
+            </section>
+
+            <section>
+                In case you're curious, here's the schema meta-class:
+                <pre><code>
+{
+  "fields": {
+    "name": { "type": "string", "required": true },
+    "fields": { "type": "object", "required": true, "value_fields": {
+      "type": { "type": "select", "required": true,
+        "options": ["string", "select", "boolean", "object", "array",
+          "number", "function", "markup", "date"] },
+      "required": { "type": "boolean" /* default: false */ },
+      "options": { "type": "array" },
+      "fields": { "type": "object" },
+      "value_fields": { "type": "object" },
+      "ref": { "type": "select", "ref": "class" },
+      "ref_field": { "type": "string" /* default: "name" */ }
+    }
+    }
+  }
+}
+                </code></pre>
+            </section>
+
+            <!--------------------------- MODULES -------------------------------->
+            <section id="modules">
+                <h1>Modules</h1>
+            </section>
+
+            <section>
+                <p>Modules in Hammock work similarly as in other languages:</p><br>
+                <ul>
+                <li class="fragment"> They can be used to reuse code across projects. </p>
+                <li class="fragment"> A module can also be deployed as a web app... </li>
+                <li class="fragment"> or it can act as a plugin inside a <a href="#/plugins">App Template</a></li>
+                </ul>
+            </section>
+
+            <section>
+                <div>There are two ways of creating a module:</div>
+                <div><span style="color: green">Declaratively</span> as a collection of JSON documents or single document</div>
+                <div><b style="color: orange">Programatically</b> using javascript code</div>
+            </section>
+
+            <section>
+                Hello World example
+                <pre><code>
+Hammock.createModule({
+  name: "hello-world",
+  title: "Hello World!",
+  world: "earth",
+  render: function () {
+    return <div>Hello {this.world}!</div>;
+  }
+});
+                </code></pre>
+                ...yes, that looks exactly like a React class, that's the point. But a module can also do a lot more.
+            </section>
+
+            <section>
+                A more complex example:
+
+                (this part is under construction)
+                <!--<pre><code>-->
+                <!--</code></pre>-->
+            </section>
+
+            <section>
+                The vision is to foster an ecosystem of libraries and plugins to make web programming
+                <span style="font-weight:bold; color: green">simple</span>
+                and <span style="font-weight:bold; color: blueviolet">fun</span>!
+            </section>
+
+
+            <!--------------------------- Plugins & Shells -------------------------------->
+            <section id="plugins">
+                <h2>Plugins & App Templates</h2>
+            </section>
+
+            <section>
+                <p>A plugin is a module that plugs in to an "App Template" and provides some specific functionality.</p> <br>
+                <p>Many different App Templates could be developed, and we're looking to provide a few out of the box.</p>
+            </section>
+
+            <section>
+                <p>The Dashboard App Template can is an app which can host a bunch of widgets, kind of like:</p> <br>
+                <img src="assets/LionDashboard.png"/>
+            </section>
+
+				<section>
+					<h1>THE END</h1>
+					<h3>contact: vonwao@gmail.com</h3>
+					<h3>We don't have a mailing list yet, but you can keep up with us on Facebook: </h3>
+				</section>
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'linear', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Parallax scrolling
+				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+				// parallaxBackgroundSize: '2100px 900px',
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
