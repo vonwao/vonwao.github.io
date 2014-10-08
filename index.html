@@ -73,7 +73,8 @@
                     100% Javascript</p>  <br>
                 <p class="fragment">
                     <!--Class-based, declarative, meta-programming</p>  <br>-->
-                    Declarative Meta-programming</p>  <br>
+                    <!--Declarative Meta-programming</p>  <br>-->
+                    Declarative programming</p>  <br>
                 <p class="fragment">
                     Strong typing, smart editor</p>
             </section>
@@ -103,7 +104,7 @@
 
             <section>
                 <p>
-                Classes in hammock are different than in most programming languages.  A class is simply a JSON document that has a schema (a "fields" property).
+                In Hammock, a class is simply a JSON document that has a schema (a "fields" property).
                 </p>
                 <p>
                 A class is always an instance of another class. The root class, which defines the basic types and structure of a class schema, is an instance of itself.
@@ -155,8 +156,8 @@
   }
 }
                 </code></pre>
-                This is a class definition for React.js components.  It's labeled a meta-class because instances of this class
-                are React classes (although not technically a Hammock class, by the definition we gave above)
+                This is a class definition for any React.js class.  (we called it a meta-class because instances of this class
+                are React classes -- both Hammock and React use the term "class", but they're not really the same thing).
 
             </section>
 
@@ -216,28 +217,28 @@
                 <h2>Web Shell</h2>
             </section>
 
-            <section>
-                <p>We have lots of amazing development tools nowadays: </p>
-            </section>
+            <!--<section>-->
+                <!--<p>We have lots of amazing development tools nowadays: </p>-->
+            <!--</section>-->
 
-            <section>
-                <p>... but none that matches the elegance and simplicity of the unix shell </p>
-            </section>
+            <!--<section>-->
+                <!--<p>... but none that matches the elegance and simplicity of the unix shell </p>-->
+            <!--</section>-->
 
-            <section>
-                great example of an elegant unix script, with a screenshot
-                <p></p>
-            </section>
+            <!--<section>-->
+                <!--great example of an elegant unix script, with a screenshot-->
+                <!--<p></p>-->
+            <!--</section>-->
 
             <section>
                 The Web Shell is an integral part of Hammock, it has a built-in database.
+                <p>
+                When using the Hammock Web Shell to develop a project, both your code and data is stored in JSON documents in a database
+                (using PouchDB and CouchDB).
+                </p>
+                <!--You can define new classes-->
+                <!--compact module vs expanded module or combination-->
 
-                When using the Hammock Web Shell, your code and data is stored in JSON documents in a database
-                (it uses PouchDB and CouchDB).
-                You can define new classes
-                compact module vs expanded module or combination
-
-                In fact, it grew out of a CMS system
             </section>
 
             <!--------------------------- MODULES -------------------------------->
@@ -298,25 +299,25 @@ Hammock.createModule({
 
 
             <!--------------------------- Plugins & Shells -------------------------------->
-            <section id="plugins">
-                <h2>Plugins & App Templates</h2>
-            </section>
+            <!--<section id="plugins">-->
+                <!--<h2>Plugins & App Templates</h2>-->
+            <!--</section>-->
 
-            <section>
-                <p>A plugin is a module that plugs in to an "App Template" and provides some specific functionality.</p> <br>
-                <p>Many different App Templates could be developed, and we're looking to provide a few out of the box.</p>
-            </section>
+            <!--<section>-->
+                <!--<p>A plugin is a module that plugs in to an "App Template" and provides some specific functionality.</p> <br>-->
+                <!--<p>Many different App Templates could be developed, and we're looking to provide a few out of the box.</p>-->
+            <!--</section>-->
 
-            <section>
-                <p>The Dashboard App Template is an app which can host a bunch of widgets, kind of like this:</p> <br>
-                <img src="assets/LionDashboard.png"/>
-            </section>
+            <!--<section>-->
+                <!--<p>The Dashboard App Template is an app which can host a bunch of widgets, kind of like this:</p> <br>-->
+                <!--<img src="assets/LionDashboard.png"/>-->
+            <!--</section>-->
 
-				<section>
-					<h2>THE END</h2>  <br>
-					<p>contact: vonwao@gmail.com (Otto)</p>
-					<p>We don't have a mailing list yet, but you could follow us <br><a href="https://www.facebook.com/pages/Hammock-Programming/277563319119545">on Facebook</a></p>
-				</section>
+				<!--<section>-->
+					<!--<h2>THE END</h2>  <br>-->
+					<!--<p>contact: vonwao@gmail.com (Otto)</p>-->
+					<!--<p>We don't have a mailing list yet, but you could follow us <br><a href="https://www.facebook.com/pages/Hammock-Programming/277563319119545">on Facebook</a></p>-->
+				<!--</section>-->
 
 			</div>
 
