@@ -1,0 +1,1006 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Circular Path Navigation Options</title>
+    <style>
+      :root {
+        --black: #050505;
+        --white: #ffffff;
+        --paper: #f5f5f2;
+        --ink: #111111;
+        --muted: #6b6b6b;
+        --line-dark: rgba(255, 255, 255, 0.16);
+        --line-light: rgba(0, 0, 0, 0.14);
+        --sage: #b9c7a6;
+        --steel: #9fb5c7;
+        --rose: #d4b2ac;
+        --max: 1240px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        background: #111111;
+        color: var(--white);
+        font-family:
+          Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+          "Segoe UI", sans-serif;
+      }
+
+      button,
+      a {
+        font: inherit;
+      }
+
+      a {
+        color: inherit;
+      }
+
+      .review-toolbar {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        background: #151515;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      }
+
+      .toolbar-inner {
+        display: grid;
+        max-width: var(--max);
+        min-height: 78px;
+        margin: 0 auto;
+        padding: 14px 24px;
+        grid-template-columns: minmax(220px, 1fr) auto;
+        gap: 18px;
+        align-items: center;
+      }
+
+      .toolbar-title {
+        min-width: 0;
+      }
+
+      .toolbar-title h1 {
+        margin: 0 0 5px;
+        font-size: 15px;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        line-height: 1.2;
+        text-transform: uppercase;
+      }
+
+      .toolbar-title p {
+        margin: 0;
+        color: rgba(255, 255, 255, 0.66);
+        font-size: 12px;
+        line-height: 1.35;
+      }
+
+      .option-tabs {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .option-tab {
+        min-height: 38px;
+        padding: 0 14px;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        background: transparent;
+        color: var(--white);
+        cursor: pointer;
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        white-space: nowrap;
+      }
+
+      .option-tab.is-active {
+        border-color: var(--white);
+        background: var(--white);
+        color: var(--black);
+      }
+
+      .stage-wrap {
+        max-width: 1440px;
+        margin: 28px auto 56px;
+        padding: 0 24px;
+      }
+
+      .stage-label {
+        display: flex;
+        min-height: 36px;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+        color: rgba(255, 255, 255, 0.72);
+        font-size: 12px;
+      }
+
+      .stage-label strong {
+        color: var(--white);
+        font-size: 13px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .site-stage {
+        position: relative;
+        min-height: 780px;
+        overflow: hidden;
+        background: var(--black);
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        box-shadow: 0 28px 80px rgba(0, 0, 0, 0.34);
+      }
+
+      .site-stage::before {
+        position: absolute;
+        inset: 0;
+        background-image: url("assets/circular-path-homepage-context.jpg");
+        background-position: center top;
+        background-repeat: no-repeat;
+        background-size: cover;
+        content: "";
+      }
+
+      .site-stage::after {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(180deg, rgba(0, 0, 0, 0) 45%, rgba(0, 0, 0, 0.18));
+        content: "";
+        pointer-events: none;
+      }
+
+      .nav-option {
+        position: relative;
+        z-index: 2;
+        display: none;
+      }
+
+      .nav-option.is-active {
+        display: block;
+      }
+
+      .announcement {
+        display: grid;
+        min-height: 32px;
+        place-items: center;
+        padding: 7px 56px;
+        background: var(--black);
+        border-bottom: 1px solid var(--line-dark);
+        color: var(--white);
+        font-size: 12px;
+        line-height: 1.25;
+        text-align: center;
+      }
+
+      .brand-link {
+        color: var(--white);
+        font-weight: 700;
+        letter-spacing: 0.32em;
+        line-height: 1;
+        text-align: center;
+        text-decoration: none;
+        text-transform: uppercase;
+        white-space: nowrap;
+      }
+
+      .icon-row {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 8px;
+      }
+
+      .icon-button {
+        display: grid;
+        width: 38px;
+        height: 38px;
+        place-items: center;
+        border: 0;
+        background: transparent;
+        color: currentColor;
+        cursor: pointer;
+      }
+
+      .icon-button svg {
+        width: 20px;
+        height: 20px;
+        stroke: currentColor;
+        stroke-width: 1.7;
+      }
+
+      .nav-trigger,
+      .nav-link {
+        position: relative;
+        display: inline-flex;
+        min-height: 44px;
+        align-items: center;
+        border: 0;
+        background: transparent;
+        color: currentColor;
+        cursor: pointer;
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        line-height: 1.1;
+        text-decoration: none;
+        text-transform: uppercase;
+        white-space: nowrap;
+      }
+
+      .nav-trigger::after,
+      .nav-link::after {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        height: 2px;
+        background: currentColor;
+        content: "";
+        opacity: 0;
+        transform: scaleX(0.42);
+        transition:
+          opacity 140ms ease,
+          transform 140ms ease;
+      }
+
+      .nav-trigger:is(:hover, :focus-visible, .is-open)::after,
+      .nav-link:is(:hover, :focus-visible)::after {
+        opacity: 1;
+        transform: scaleX(1);
+      }
+
+      .menu-panel {
+        display: none;
+      }
+
+      .menu-panel.is-open {
+        display: grid;
+      }
+
+      .mega-columns {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(130px, 1fr));
+        gap: 26px;
+      }
+
+      .menu-column h3 {
+        margin: 0 0 13px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid var(--line-light);
+        color: var(--ink);
+        font-size: 12px;
+        font-weight: 900;
+        letter-spacing: 0.12em;
+        line-height: 1.2;
+        text-transform: uppercase;
+      }
+
+      .menu-column a,
+      .menu-column span {
+        display: block;
+        width: fit-content;
+        max-width: 100%;
+        margin: 0 0 10px;
+        color: var(--ink);
+        font-size: 14px;
+        line-height: 1.3;
+        text-decoration: none;
+      }
+
+      .menu-column a:is(:hover, :focus-visible) {
+        text-decoration: underline;
+        text-decoration-thickness: 1px;
+        text-underline-offset: 4px;
+      }
+
+      .feature-tile {
+        position: relative;
+        min-height: 250px;
+        overflow: hidden;
+        background: #242424;
+        isolation: isolate;
+      }
+
+      .feature-tile::before {
+        position: absolute;
+        inset: 0;
+        background-image: url("assets/circular-path-homepage-context.jpg");
+        background-position: var(--feature-position, center 48%);
+        background-size: 820px auto;
+        content: "";
+        transform: scale(1.02);
+      }
+
+      .feature-tile::after {
+        position: absolute;
+        inset: 0;
+        background:
+          linear-gradient(180deg, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.66)),
+          rgba(0, 0, 0, 0.08);
+        content: "";
+      }
+
+      .feature-copy {
+        position: absolute;
+        right: 18px;
+        bottom: 18px;
+        left: 18px;
+        z-index: 1;
+        color: var(--white);
+      }
+
+      .feature-kicker {
+        display: block;
+        margin-bottom: 8px;
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      .feature-title {
+        margin: 0;
+        font-size: 20px;
+        font-weight: 900;
+        letter-spacing: 0.06em;
+        line-height: 1.1;
+        text-transform: uppercase;
+      }
+
+      .option-a-header {
+        background: var(--black);
+        color: var(--white);
+      }
+
+      .option-a-mainbar {
+        display: grid;
+        min-height: 70px;
+        padding: 0 28px;
+        grid-template-columns: 1fr auto 1fr;
+        align-items: center;
+        border-bottom: 1px solid var(--line-dark);
+      }
+
+      .option-a-rail {
+        display: flex;
+        min-height: 48px;
+        padding: 0 24px;
+        align-items: center;
+        justify-content: center;
+        gap: clamp(12px, 1.7vw, 28px);
+        border-bottom: 1px solid var(--line-dark);
+      }
+
+      .option-a-mega {
+        position: absolute;
+        right: 0;
+        left: 0;
+        background: var(--paper);
+        color: var(--ink);
+        border-bottom: 1px solid var(--line-light);
+        box-shadow: 0 22px 50px rgba(0, 0, 0, 0.25);
+      }
+
+      .option-a-mega .menu-panel {
+        max-width: var(--max);
+        min-height: 306px;
+        margin: 0 auto;
+        padding: 26px 24px 30px;
+        grid-template-columns: minmax(220px, 300px) minmax(0, 1fr);
+        gap: 34px;
+      }
+
+      .option-b-header {
+        display: grid;
+        min-height: 82px;
+        padding: 0 26px;
+        grid-template-columns: auto minmax(0, 1fr) auto;
+        align-items: center;
+        gap: 28px;
+        background: rgba(5, 5, 5, 0.96);
+        color: var(--white);
+        border-bottom: 1px solid var(--line-dark);
+      }
+
+      .option-b-nav {
+        display: flex;
+        min-width: 0;
+        align-items: center;
+        justify-content: center;
+        gap: clamp(14px, 2vw, 34px);
+      }
+
+      .option-b-panel {
+        position: absolute;
+        right: 24px;
+        left: 24px;
+        display: none;
+        min-height: 150px;
+        margin-top: 0;
+        padding: 22px 30px 24px;
+        background: rgba(245, 245, 242, 0.96);
+        color: var(--ink);
+        border-bottom: 1px solid var(--line-light);
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.24);
+      }
+
+      .option-b-panel.is-open {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 32px;
+        align-items: start;
+      }
+
+      .option-b-panel .mega-columns {
+        grid-template-columns: repeat(5, minmax(110px, 1fr));
+      }
+
+      .compact-callout {
+        display: grid;
+        min-width: 190px;
+        min-height: 100%;
+        padding: 18px;
+        align-content: end;
+        background: var(--ink);
+        color: var(--white);
+      }
+
+      .compact-callout span {
+        display: block;
+        color: rgba(255, 255, 255, 0.72);
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      .compact-callout strong {
+        margin-top: 8px;
+        font-size: 17px;
+        letter-spacing: 0.08em;
+        line-height: 1.15;
+        text-transform: uppercase;
+      }
+
+      .option-c-header {
+        background: rgba(5, 5, 5, 0.96);
+        color: var(--white);
+      }
+
+      .option-c-mainbar {
+        display: grid;
+        min-height: 92px;
+        padding: 0 30px;
+        grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+        gap: 24px;
+        align-items: center;
+        border-bottom: 1px solid var(--line-dark);
+      }
+
+      .split-nav {
+        display: flex;
+        align-items: center;
+        gap: clamp(16px, 2.4vw, 36px);
+      }
+
+      .split-nav:last-child {
+        justify-content: flex-end;
+      }
+
+      .collab-strip {
+        display: grid;
+        min-height: 56px;
+        padding: 0 30px;
+        grid-template-columns: auto minmax(0, 1fr) auto;
+        align-items: center;
+        gap: 24px;
+        background: #f2f0ed;
+        color: var(--ink);
+      }
+
+      .strip-kicker {
+        color: #555555;
+        font-size: 11px;
+        font-weight: 900;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      .strip-links {
+        display: flex;
+        min-width: 0;
+        align-items: center;
+        justify-content: center;
+        gap: clamp(16px, 3vw, 44px);
+      }
+
+      .strip-links a {
+        color: var(--ink);
+        font-size: 12px;
+        font-weight: 900;
+        letter-spacing: 0.1em;
+        text-decoration: none;
+        text-transform: uppercase;
+        white-space: nowrap;
+      }
+
+      .strip-cta {
+        min-height: 34px;
+        padding: 0 14px;
+        border: 1px solid var(--ink);
+        color: var(--ink);
+        display: inline-flex;
+        align-items: center;
+        text-decoration: none;
+        font-size: 11px;
+        font-weight: 900;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        white-space: nowrap;
+      }
+
+      .option-c-mega {
+        position: absolute;
+        right: 0;
+        left: 0;
+        background: #f7f7f5;
+        color: var(--ink);
+        border-bottom: 1px solid var(--line-light);
+        box-shadow: 0 22px 50px rgba(0, 0, 0, 0.22);
+      }
+
+      .option-c-mega .menu-panel {
+        max-width: var(--max);
+        min-height: 260px;
+        margin: 0 auto;
+        padding: 24px;
+        grid-template-columns: 1fr 1fr;
+        gap: 28px;
+        align-items: stretch;
+      }
+
+      .spotlight-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px;
+      }
+
+      .spotlight-card {
+        display: grid;
+        min-height: 214px;
+        padding: 18px;
+        align-content: end;
+        background:
+          linear-gradient(180deg, rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0.72)),
+          url("assets/circular-path-homepage-context.jpg");
+        background-position: var(--spot-position, center 48%);
+        background-size: 820px auto;
+        color: var(--white);
+        text-decoration: none;
+      }
+
+      .spotlight-card span {
+        font-size: 12px;
+        font-weight: 900;
+        letter-spacing: 0.11em;
+        text-transform: uppercase;
+      }
+
+      .option-notes {
+        display: grid;
+        margin-top: 18px;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 14px;
+      }
+
+      .note {
+        min-height: 94px;
+        padding: 16px;
+        background: #1b1b1b;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+      }
+
+      .note h2 {
+        margin: 0 0 8px;
+        font-size: 12px;
+        font-weight: 900;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+
+      .note p {
+        margin: 0;
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 12px;
+        line-height: 1.45;
+      }
+
+      @media (max-width: 1080px) {
+        .toolbar-inner {
+          grid-template-columns: 1fr;
+        }
+
+        .option-tabs {
+          overflow-x: auto;
+          padding-bottom: 2px;
+        }
+
+        .option-a-rail,
+        .option-b-nav,
+        .split-nav,
+        .collab-strip {
+          overflow-x: auto;
+          justify-content: flex-start;
+        }
+
+        .option-b-header,
+        .option-c-mainbar {
+          grid-template-columns: 1fr auto;
+        }
+
+        .option-b-nav,
+        .option-c-mainbar .split-nav:first-child {
+          grid-column: 1 / -1;
+          grid-row: 2;
+          padding-bottom: 12px;
+        }
+
+        .option-c-mainbar {
+          min-height: 132px;
+        }
+
+        .option-notes {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="review-toolbar">
+      <div class="toolbar-inner">
+        <div class="toolbar-title">
+          <h1>Circular Path Desktop Navigation Options</h1>
+          <p>Three directions shown over the current homepage context. Hover or click menu labels inside each option.</p>
+        </div>
+        <div class="option-tabs" role="tablist" aria-label="Navigation design options">
+          <button class="option-tab is-active" type="button" data-option="a" role="tab" aria-selected="true">Option A</button>
+          <button class="option-tab" type="button" data-option="b" role="tab" aria-selected="false">Option B</button>
+          <button class="option-tab" type="button" data-option="c" role="tab" aria-selected="false">Option C</button>
+        </div>
+      </div>
+    </div>
+
+    <main class="stage-wrap">
+      <div class="stage-label">
+        <strong id="active-title">Option A: AKIRA-Style Mega Menu</strong>
+        <span>Desktop review context using a live Circular Path homepage capture from 2026-05-19.</span>
+      </div>
+
+      <section class="site-stage" aria-label="Circular Path homepage context with navigation prototype">
+        <div class="nav-option is-active" data-view="a">
+          <header class="option-a-header" data-menu-scope>
+            <div class="announcement">Bundle & Save: Shop any 4 pieces from Lulu & Lala's collection for $450</div>
+            <div class="option-a-mainbar">
+              <div></div>
+              <a class="brand-link" href="/">Circular Path</a>
+              <div class="icon-row" aria-label="Utility navigation">
+                <button class="icon-button" type="button" aria-label="Search">
+                  <svg aria-hidden="true" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="6" /><path d="m16 16 4 4" /></svg>
+                </button>
+                <a class="icon-button" href="/account" aria-label="Account">
+                  <svg aria-hidden="true" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" /><path d="M4 21c1.7-4 4.3-6 8-6s6.3 2 8 6" /></svg>
+                </a>
+                <a class="icon-button" href="/cart" aria-label="Cart">
+                  <svg aria-hidden="true" viewBox="0 0 24 24" fill="none"><path d="M7 9h10l1 11H6L7 9Z" /><path d="M9 9a3 3 0 0 1 6 0" /></svg>
+                </a>
+              </div>
+            </div>
+            <nav class="option-a-rail" aria-label="Primary navigation option A">
+              <button class="nav-trigger" type="button" data-menu="new">New Arrivals</button>
+              <button class="nav-trigger" type="button" data-menu="clothing">Clothing</button>
+              <button class="nav-trigger" type="button" data-menu="collections">Collections</button>
+              <button class="nav-trigger is-open" type="button" data-menu="collabs">Collaborations</button>
+              <button class="nav-trigger" type="button" data-menu="models">Shop The Models</button>
+              <button class="nav-trigger" type="button" data-menu="shoes">Shoes</button>
+              <a class="nav-link" href="/collections/bundles">Bundles</a>
+              <a class="nav-link" href="/collections/best-sellers">Best Sellers</a>
+              <a class="nav-link" href="/products/gift-card">Gift Cards</a>
+            </nav>
+            <div class="option-a-mega">
+              <section class="menu-panel" data-panel="new" aria-label="New Arrivals menu">
+                <div class="feature-tile" style="--feature-position: center top" aria-hidden="true">
+                  <div class="feature-copy"><span class="feature-kicker">Just In</span><p class="feature-title">Spring Summer 2026</p></div>
+                </div>
+                <div class="mega-columns">
+                  <div class="menu-column"><h3>New Arrivals</h3><a href="/collections/new-arrivals">Shop All New Arrivals</a><a href="/collections/new-dresses">New Dresses</a><a href="/collections/new-tops">New Tops</a><a href="/collections/new-bottoms">New Bottoms</a></div>
+                  <div class="menu-column"><h3>Fresh Categories</h3><a href="/collections/denim">New Denim</a><a href="/collections/jumpsuits">New Jumpsuits</a><a href="/collections/coats">New Outerwear</a><a href="/collections/accessories">New Accessories</a></div>
+                  <div class="menu-column"><h3>Featured</h3><a href="/collections/best-sellers">Best Sellers</a><a href="/collections/bundles">Bundles</a><a href="/collections/sets">Sets</a><a href="/collections/workwear">Workwear</a></div>
+                  <div class="menu-column"><h3>Shortcut</h3><a href="/collections/all">Shop All</a><a href="/products/gift-card">Gift Cards</a></div>
+                </div>
+              </section>
+              <section class="menu-panel" data-panel="clothing" aria-label="Clothing menu">
+                <div class="feature-tile" style="--feature-position: center 64%" aria-hidden="true">
+                  <div class="feature-copy"><span class="feature-kicker">Shop</span><p class="feature-title">Circular Path Clothing</p></div>
+                </div>
+                <div class="mega-columns">
+                  <div class="menu-column"><h3>Categories</h3><a href="/collections/all">Shop All</a><a href="/collections/dresses">Dresses</a><a href="/collections/tops">Tops</a><a href="/collections/bottoms">Bottoms</a></div>
+                  <div class="menu-column"><h3>Essentials</h3><a href="/collections/denim">Denim</a><a href="/collections/skirts">Skirts</a><a href="/collections/jumpsuits">Jumpsuits</a><a href="/collections/coats">Coats</a></div>
+                  <div class="menu-column"><h3>Edits</h3><a href="/collections/workwear">Workwear</a><a href="/collections/loungewear">Loungewear</a><a href="/collections/sets">Sets</a><a href="/collections/maxi-vs-mini">Maxi vs Mini</a></div>
+                  <div class="menu-column"><h3>Accessories</h3><a href="/collections/scarves">Scarves</a><a href="/collections/belts">Belts</a><a href="/products/gift-card">Gift Cards</a></div>
+                </div>
+              </section>
+              <section class="menu-panel" data-panel="collections" aria-label="Collections menu">
+                <div class="feature-tile" style="--feature-position: center 48%" aria-hidden="true">
+                  <div class="feature-copy"><span class="feature-kicker">Curated Edits</span><p class="feature-title">Shop By Mood</p></div>
+                </div>
+                <div class="mega-columns">
+                  <div class="menu-column"><h3>Style Edits</h3><a href="/collections/neutrals">Neutrals</a><a href="/collections/denim">Denim</a><a href="/collections/prints">Prints</a><a href="/collections/sets">Sets</a></div>
+                  <div class="menu-column"><h3>Seasonal</h3><a href="/collections/spring-summer-2026">Spring Summer 2026</a><a href="/collections/maxi-vs-mini">Maxi vs Mini</a><a href="/collections/best-sellers">Best Sellers</a></div>
+                  <div class="menu-column"><h3>Values</h3><a href="/collections/peta">PETA Approved Vegan</a><a href="/pages/peta">About PETA Approval</a></div>
+                  <div class="menu-column"><h3>All Collections</h3><a href="/collections">View All Collections</a></div>
+                </div>
+              </section>
+              <section class="menu-panel is-open" data-panel="collabs" aria-label="Collaborations menu">
+                <div class="feature-tile" style="--feature-position: center 44%" aria-hidden="true">
+                  <div class="feature-copy"><span class="feature-kicker">Collaborations</span><p class="feature-title">Circular Path X</p></div>
+                </div>
+                <div class="mega-columns">
+                  <div class="menu-column"><h3>Featured Collabs</h3><a href="/collections/x-lulu-x-lala">X Lulu x Lala</a><a href="/collections/x-jordan-emanuel">X Jordan Emanuel</a><a href="/collections/x-amanda-murray">X Amanda Murray</a><a href="/collections/x-love-tara">X Love Tara</a></div>
+                  <div class="menu-column"><h3>Shop Collabs</h3><a href="/pages/collaborations">View All Collaborations</a><a href="/collections/bundles">Lulu & Lala Bundle</a><a href="/collections/peta">PETA Approved</a></div>
+                  <div class="menu-column"><h3>By Category</h3><a href="/collections/collaboration-dresses">Collab Dresses</a><a href="/collections/collaboration-sets">Collab Sets</a><a href="/collections/collaboration-shoes">Collab Shoes</a></div>
+                  <div class="menu-column"><h3>Launches</h3><a href="/collections/new-arrivals">Latest Launches</a><a href="/collections/best-sellers">Best Sellers</a></div>
+                </div>
+              </section>
+              <section class="menu-panel" data-panel="models" aria-label="Shop The Models menu">
+                <div class="feature-tile" style="--feature-position: center 38%" aria-hidden="true">
+                  <div class="feature-copy"><span class="feature-kicker">Styled On</span><p class="feature-title">Shop The Models</p></div>
+                </div>
+                <div class="mega-columns">
+                  <div class="menu-column"><h3>All Models</h3><a href="/collections/shop-the-models">Shop All Models</a><a href="/collections/jordan">Jordan</a><a href="/collections/keenyah">Keenyah</a></div>
+                  <div class="menu-column"><h3>Models</h3><a href="/collections/laura">Laura</a><a href="/collections/estelle">Estelle</a><a href="/collections/lala">Lala</a><a href="/collections/lulu">Lulu</a></div>
+                  <div class="menu-column"><h3>More</h3><a href="/collections/taylor">Taylor</a><a href="/collections/best-sellers">Best Sellers</a></div>
+                  <div class="menu-column"><h3>Shop By Fit</h3><a href="/pages/size-guide">Size Guide</a><a href="/collections/all">All Styles</a></div>
+                </div>
+              </section>
+              <section class="menu-panel" data-panel="shoes" aria-label="Shoes menu">
+                <div class="feature-tile" style="--feature-position: right 60%" aria-hidden="true">
+                  <div class="feature-copy"><span class="feature-kicker">Partner Path</span><p class="feature-title">Circular Path Shoes</p></div>
+                </div>
+                <div class="mega-columns">
+                  <div class="menu-column"><h3>Shoes</h3><a href="/pages/shoes">Shop All Shoes</a><a href="/pages/amanda-murray-shoes">Amanda Murray Shoes</a><a href="/pages/shoes-boots">Boots</a><a href="/pages/shoes-heels">Heels</a></div>
+                  <div class="menu-column"><h3>Featured</h3><a href="/pages/shoes-new-arrivals">New Shoes</a><a href="/pages/shoes-best-sellers">Best Sellers</a></div>
+                  <div class="menu-column"><h3>Before You Go</h3><a href="/pages/shoes">Shoe Partner Details</a><a href="/pages/contact">Questions</a></div>
+                  <div class="menu-column"><h3>Details</h3><a href="/pages/shoe-orders">How Shoe Orders Work</a><a href="/pages/size-guide">Shoe Size Guide</a></div>
+                </div>
+              </section>
+            </div>
+          </header>
+        </div>
+
+        <div class="nav-option" data-view="b">
+          <header data-menu-scope>
+            <div class="option-b-header">
+              <a class="brand-link" href="/">Circular Path</a>
+              <nav class="option-b-nav" aria-label="Primary navigation option B">
+                <button class="nav-trigger is-open" type="button" data-menu="shop">Shop</button>
+                <button class="nav-trigger" type="button" data-menu="collections">Collections</button>
+                <button class="nav-trigger" type="button" data-menu="collabs">Collaborations</button>
+                <button class="nav-trigger" type="button" data-menu="models">Shop The Models</button>
+                <button class="nav-trigger" type="button" data-menu="shoes">Shoes</button>
+                <a class="nav-link" href="/collections/best-sellers">Best Sellers</a>
+              </nav>
+              <div class="icon-row" aria-label="Utility navigation">
+                <button class="icon-button" type="button" aria-label="Search"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="6" /><path d="m16 16 4 4" /></svg></button>
+                <a class="icon-button" href="/account" aria-label="Account"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" /><path d="M4 21c1.7-4 4.3-6 8-6s6.3 2 8 6" /></svg></a>
+                <a class="icon-button" href="/cart" aria-label="Cart"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none"><path d="M7 9h10l1 11H6L7 9Z" /><path d="M9 9a3 3 0 0 1 6 0" /></svg></a>
+              </div>
+            </div>
+            <div class="option-b-panel is-open" data-panel="shop">
+              <div class="mega-columns">
+                <div class="menu-column"><h3>Shop</h3><a href="/collections/new-arrivals">New Arrivals</a><a href="/collections/all">Shop All</a><a href="/collections/best-sellers">Best Sellers</a></div>
+                <div class="menu-column"><h3>Categories</h3><a href="/collections/dresses">Dresses</a><a href="/collections/tops">Tops</a><a href="/collections/bottoms">Bottoms</a></div>
+                <div class="menu-column"><h3>Essentials</h3><a href="/collections/denim">Denim</a><a href="/collections/jumpsuits">Jumpsuits</a><a href="/collections/sets">Sets</a></div>
+                <div class="menu-column"><h3>Accessories</h3><a href="/collections/scarves">Scarves</a><a href="/collections/belts">Belts</a><a href="/products/gift-card">Gift Cards</a></div>
+                <div class="menu-column"><h3>Promo</h3><a href="/collections/bundles">Bundles</a><a href="/collections/peta">PETA Approved</a></div>
+              </div>
+              <div class="compact-callout"><span>Compact Header</span><strong>More hero visible above the fold</strong></div>
+            </div>
+            <div class="option-b-panel" data-panel="collections">
+              <div class="mega-columns">
+                <div class="menu-column"><h3>Collections</h3><a href="/collections">View All Collections</a><a href="/collections/spring-summer-2026">Spring Summer 2026</a><a href="/collections/neutrals">Neutrals</a></div>
+                <div class="menu-column"><h3>Edits</h3><a href="/collections/denim">Denim</a><a href="/collections/prints">Prints</a><a href="/collections/sets">Sets</a><a href="/collections/maxi-vs-mini">Maxi vs Mini</a></div>
+                <div class="menu-column"><h3>Values</h3><a href="/collections/peta">PETA Approved Vegan</a></div>
+              </div>
+              <div class="compact-callout"><span>Browse</span><strong>Simple dropdown groups</strong></div>
+            </div>
+            <div class="option-b-panel" data-panel="collabs">
+              <div class="mega-columns">
+                <div class="menu-column"><h3>Collaborations</h3><a href="/pages/collaborations">View All Collaborations</a><a href="/collections/x-lulu-x-lala">X Lulu x Lala</a><a href="/collections/x-jordan-emanuel">X Jordan Emanuel</a></div>
+                <div class="menu-column"><h3>Needed Paths</h3><a href="/collections/x-amanda-murray">X Amanda Murray</a><a href="/collections/x-love-tara">X Love Tara</a></div>
+                <div class="menu-column"><h3>Shop</h3><a href="/collections/collaboration-dresses">Dresses</a><a href="/collections/collaboration-sets">Sets</a><a href="/collections/collaboration-shoes">Shoes</a></div>
+              </div>
+              <div class="compact-callout"><span>Priority</span><strong>Collabs stay discoverable</strong></div>
+            </div>
+            <div class="option-b-panel" data-panel="models">
+              <div class="mega-columns">
+                <div class="menu-column"><h3>Shop The Models</h3><a href="/collections/shop-the-models">All Models</a><a href="/collections/jordan">Jordan</a><a href="/collections/keenyah">Keenyah</a></div>
+                <div class="menu-column"><h3>More Models</h3><a href="/collections/laura">Laura</a><a href="/collections/estelle">Estelle</a><a href="/collections/lulu">Lulu</a><a href="/collections/lala">Lala</a></div>
+              </div>
+              <div class="compact-callout"><span>Styled On</span><strong>Model-based shopping</strong></div>
+            </div>
+            <div class="option-b-panel" data-panel="shoes">
+              <div class="mega-columns">
+                <div class="menu-column"><h3>Shoes</h3><a href="/pages/shoes">Shop All Shoes</a><a href="/pages/amanda-murray-shoes">Amanda Murray Shoes</a><a href="/pages/shoes-boots">Boots</a><a href="/pages/shoes-heels">Heels</a></div>
+                <div class="menu-column"><h3>Details</h3><a href="/pages/shoe-orders">How Shoe Orders Work</a><a href="/pages/size-guide">Shoe Size Guide</a></div>
+              </div>
+              <div class="compact-callout"><span>Partner</span><strong>Clear external path</strong></div>
+            </div>
+          </header>
+        </div>
+
+        <div class="nav-option" data-view="c">
+          <header class="option-c-header" data-menu-scope>
+            <div class="option-c-mainbar">
+              <nav class="split-nav" aria-label="Primary left navigation option C">
+                <button class="nav-trigger" type="button" data-menu="new">New Arrivals</button>
+                <button class="nav-trigger" type="button" data-menu="clothing">Clothing</button>
+                <button class="nav-trigger" type="button" data-menu="collections">Collections</button>
+              </nav>
+              <a class="brand-link" href="/">Circular Path</a>
+              <nav class="split-nav" aria-label="Primary right navigation option C">
+                <button class="nav-trigger is-open" type="button" data-menu="collabs">Collaborations</button>
+                <button class="nav-trigger" type="button" data-menu="shoes">Shoes</button>
+                <a class="nav-link" href="/collections/best-sellers">Best Sellers</a>
+                <div class="icon-row" aria-label="Utility navigation">
+                  <button class="icon-button" type="button" aria-label="Search"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="6" /><path d="m16 16 4 4" /></svg></button>
+                  <a class="icon-button" href="/cart" aria-label="Cart"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none"><path d="M7 9h10l1 11H6L7 9Z" /><path d="M9 9a3 3 0 0 1 6 0" /></svg></a>
+                </div>
+              </nav>
+            </div>
+            <div class="collab-strip">
+              <span class="strip-kicker">Featured Collaborations</span>
+              <div class="strip-links">
+                <a href="/collections/x-lulu-x-lala">Lulu x Lala</a>
+                <a href="/collections/x-amanda-murray">Amanda Murray</a>
+                <a href="/collections/x-love-tara">Love Tara</a>
+                <a href="/collections/x-jordan-emanuel">Jordan Emanuel</a>
+              </div>
+              <a class="strip-cta" href="/pages/collaborations">View All</a>
+            </div>
+            <div class="option-c-mega">
+              <section class="menu-panel is-open" data-panel="collabs" aria-label="Collaboration spotlight menu">
+                <div class="spotlight-grid">
+                  <a class="spotlight-card" href="/collections/x-lulu-x-lala" style="--spot-position: center 43%"><span>X Lulu x Lala</span></a>
+                  <a class="spotlight-card" href="/collections/x-amanda-murray" style="--spot-position: center 52%"><span>X Amanda Murray</span></a>
+                </div>
+                <div class="mega-columns">
+                  <div class="menu-column"><h3>Collaborations</h3><a href="/pages/collaborations">View All Collaborations</a><a href="/collections/x-jordan-emanuel">X Jordan Emanuel</a><a href="/collections/x-love-tara">X Love Tara</a></div>
+                  <div class="menu-column"><h3>Shop By Category</h3><a href="/collections/collaboration-dresses">Dresses</a><a href="/collections/collaboration-sets">Sets</a><a href="/collections/collaboration-shoes">Shoes</a></div>
+                  <div class="menu-column"><h3>Related</h3><a href="/collections/bundles">Bundles</a><a href="/collections/peta">PETA Approved</a><a href="/collections/best-sellers">Best Sellers</a></div>
+                  <div class="menu-column"><h3>Explore</h3><a href="/collections/new-arrivals">Latest Launches</a><a href="/collections/best-sellers">Best Sellers</a></div>
+                </div>
+              </section>
+              <section class="menu-panel" data-panel="new" aria-label="New Arrivals spotlight menu">
+                <div class="spotlight-grid">
+                  <a class="spotlight-card" href="/collections/new-arrivals" style="--spot-position: center top"><span>Spring Summer 2026</span></a>
+                  <a class="spotlight-card" href="/collections/best-sellers" style="--spot-position: center 60%"><span>Best Sellers</span></a>
+                </div>
+                <div class="mega-columns">
+                  <div class="menu-column"><h3>New</h3><a href="/collections/new-arrivals">Shop All New Arrivals</a><a href="/collections/new-dresses">New Dresses</a><a href="/collections/new-tops">New Tops</a></div>
+                  <div class="menu-column"><h3>Quick Links</h3><a href="/collections/bundles">Bundles</a><a href="/products/gift-card">Gift Cards</a></div>
+                </div>
+              </section>
+              <section class="menu-panel" data-panel="clothing" aria-label="Clothing spotlight menu">
+                <div class="spotlight-grid">
+                  <a class="spotlight-card" href="/collections/dresses" style="--spot-position: center 58%"><span>Dresses</span></a>
+                  <a class="spotlight-card" href="/collections/denim" style="--spot-position: center 38%"><span>Denim</span></a>
+                </div>
+                <div class="mega-columns">
+                  <div class="menu-column"><h3>Categories</h3><a href="/collections/all">Shop All</a><a href="/collections/tops">Tops</a><a href="/collections/bottoms">Bottoms</a></div>
+                  <div class="menu-column"><h3>Essentials</h3><a href="/collections/jumpsuits">Jumpsuits</a><a href="/collections/sets">Sets</a><a href="/collections/coats">Coats</a></div>
+                </div>
+              </section>
+              <section class="menu-panel" data-panel="collections" aria-label="Collections spotlight menu">
+                <div class="spotlight-grid">
+                  <a class="spotlight-card" href="/collections/neutrals" style="--spot-position: center 62%"><span>Neutrals</span></a>
+                  <a class="spotlight-card" href="/collections/peta" style="--spot-position: center 48%"><span>PETA Approved</span></a>
+                </div>
+                <div class="mega-columns">
+                  <div class="menu-column"><h3>Collections</h3><a href="/collections">View All</a><a href="/collections/prints">Prints</a><a href="/collections/sets">Sets</a></div>
+                  <div class="menu-column"><h3>Edits</h3><a href="/collections/maxi-vs-mini">Maxi vs Mini</a><a href="/collections/workwear">Workwear</a></div>
+                </div>
+              </section>
+              <section class="menu-panel" data-panel="shoes" aria-label="Shoes spotlight menu">
+                <div class="spotlight-grid">
+                  <a class="spotlight-card" href="/pages/shoes" style="--spot-position: right 55%"><span>Circular Path Shoes</span></a>
+                  <a class="spotlight-card" href="/pages/amanda-murray-shoes" style="--spot-position: center 52%"><span>Amanda Murray Shoes</span></a>
+                </div>
+                <div class="mega-columns">
+                  <div class="menu-column"><h3>Shoes</h3><a href="/pages/shoes">Shop All Shoes</a><a href="/pages/shoes-boots">Boots</a><a href="/pages/shoes-heels">Heels</a></div>
+                  <div class="menu-column"><h3>Details</h3><a href="/pages/shoe-orders">How Shoe Orders Work</a><a href="/pages/size-guide">Shoe Size Guide</a></div>
+                </div>
+              </section>
+            </div>
+          </header>
+        </div>
+      </section>
+
+      <section class="option-notes" aria-label="Option assessment notes">
+        <article class="note">
+          <h2>Option A</h2>
+          <p>Closest to AKIRA. Strongest for broad browsing and collaboration discovery, but it adds the most header height.</p>
+        </article>
+        <article class="note">
+          <h2>Option B</h2>
+          <p>Most compact. Keeps more hero visible while still making desktop categories accessible without a drawer.</p>
+        </article>
+        <article class="note">
+          <h2>Option C</h2>
+          <p>Most brand-forward. Best if collaborations should be the primary story, with a persistent collab strip.</p>
+        </article>
+      </section>
+    </main>
+
+    <script>
+      const optionTitles = {
+        a: "Option A: AKIRA-Style Mega Menu",
+        b: "Option B: Compact Department Menu",
+        c: "Option C: Collaboration-First Header",
+      };
+
+      const tabs = Array.from(document.querySelectorAll(".option-tab"));
+      const views = Array.from(document.querySelectorAll(".nav-option"));
+      const activeTitle = document.querySelector("#active-title");
+
+      function setOption(option) {
+        tabs.forEach((tab) => {
+          const isActive = tab.dataset.option === option;
+          tab.classList.toggle("is-active", isActive);
+          tab.setAttribute("aria-selected", String(isActive));
+        });
+        views.forEach((view) => view.classList.toggle("is-active", view.dataset.view === option));
+        activeTitle.textContent = optionTitles[option];
+      }
+
+      function openMenu(scope, menu) {
+        scope.querySelectorAll(".nav-trigger").forEach((trigger) => {
+          trigger.classList.toggle("is-open", trigger.dataset.menu === menu);
+        });
+        scope.querySelectorAll("[data-panel]").forEach((panel) => {
+          panel.classList.toggle("is-open", panel.dataset.panel === menu);
+        });
+      }
+
+      tabs.forEach((tab) => {
+        tab.addEventListener("click", () => setOption(tab.dataset.option));
+      });
+
+      document.querySelectorAll("[data-menu-scope]").forEach((scope) => {
+        scope.querySelectorAll(".nav-trigger").forEach((trigger) => {
+          trigger.addEventListener("mouseenter", () => openMenu(scope, trigger.dataset.menu));
+          trigger.addEventListener("focus", () => openMenu(scope, trigger.dataset.menu));
+          trigger.addEventListener("click", () => openMenu(scope, trigger.dataset.menu));
+        });
+      });
+
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") {
+          document.querySelectorAll("[data-menu-scope]").forEach((scope) => {
+            const firstOpen = scope.querySelector(".nav-trigger.is-open");
+            if (firstOpen) {
+              openMenu(scope, firstOpen.dataset.menu);
+            }
+          });
+        }
+      });
+    </script>
+  </body>
+</html>
