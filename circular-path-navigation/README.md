@@ -10,6 +10,8 @@ This folder is intentionally separate from `rapid-assessment-studio`.
   Circular Path homepage context.
 - [assets/circular-path-homepage-context.jpg](assets/circular-path-homepage-context.jpg):
   first-viewport homepage capture used as the prototype backdrop.
+- `assets/menu-*.jpg`: cropped Circular Path imagery used in the Option A
+  editorial dropdown tiles.
 
 ## Options In The Prototype
 
@@ -25,5 +27,9 @@ columns plus editorial image tiles.
 
 The Circular Path wordmark is rendered about 30% larger than the earlier
 prototype treatment.
+
+`Sale` is shown in Option A because the Zimmermann reference includes a red Sale
+link in that position. It should be removed before implementation unless the
+client explicitly wants Sale back in primary navigation.
 
 Open the HTML file directly in a desktop browser to review the options.

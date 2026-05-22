@@ -387,9 +387,9 @@
         align-content: end;
         background:
           linear-gradient(180deg, rgba(0, 0, 0, 0) 40%, rgba(0, 0, 0, 0.18)),
-          url("assets/circular-path-homepage-context.jpg");
+          var(--z-card-image, url("assets/circular-path-homepage-context.jpg"));
         background-position: var(--z-card-position, center center);
-        background-size: 760px auto;
+        background-size: cover;
         color: #111111;
         text-decoration: none;
       }
@@ -986,8 +986,8 @@
                   <a href="/collections/bundles">Bundle Edit</a>
                 </div>
                 <div class="zimmer-editorial">
-                  <a class="zimmer-card" href="/collections/spring-summer-2026" style="--z-card-position: center 40%"><span>Shop Spring Summer 2026</span></a>
-                  <a class="zimmer-card" href="/pages/collaborations" style="--z-card-position: center 56%"><span>Explore Collaborations</span></a>
+                  <a class="zimmer-card" href="/collections/spring-summer-2026" style="--z-card-image: url('assets/menu-spring.jpg'); --z-card-position: center center"><span>Shop Spring Summer 2026</span></a>
+                  <a class="zimmer-card" href="/pages/collaborations" style="--z-card-image: url('assets/menu-collab.jpg'); --z-card-position: center center"><span>Explore Collaborations</span></a>
                 </div>
               </section>
               <section class="menu-panel" data-panel="ready" aria-label="Ready To Wear menu">
@@ -1009,8 +1009,8 @@
                   <a href="/collections/workwear">Workwear</a>
                 </div>
                 <div class="zimmer-editorial">
-                  <a class="zimmer-card" href="/collections/dresses" style="--z-card-position: center 54%"><span>Discover Dresses</span></a>
-                  <a class="zimmer-card" href="/collections/sets" style="--z-card-position: center 62%"><span>Shop Sets</span></a>
+                  <a class="zimmer-card" href="/collections/dresses" style="--z-card-image: url('assets/menu-ready.jpg'); --z-card-position: center center"><span>Discover Dresses</span></a>
+                  <a class="zimmer-card" href="/collections/sets" style="--z-card-image: url('assets/menu-denim.jpg'); --z-card-position: center center"><span>Shop Sets</span></a>
                 </div>
               </section>
               <section class="menu-panel" data-panel="collabs" aria-label="Collaborations menu">
@@ -1030,8 +1030,8 @@
                   <a href="/collections/bundles">Bundles</a>
                 </div>
                 <div class="zimmer-editorial">
-                  <a class="zimmer-card" href="/collections/x-lulu-x-lala" style="--z-card-position: center 50%"><span>Lulu x Lala</span></a>
-                  <a class="zimmer-card" href="/collections/x-amanda-murray" style="--z-card-position: center 58%"><span>Amanda Murray</span></a>
+                  <a class="zimmer-card" href="/collections/x-lulu-x-lala" style="--z-card-image: url('assets/menu-collab.jpg'); --z-card-position: center center"><span>Lulu x Lala</span></a>
+                  <a class="zimmer-card" href="/collections/x-amanda-murray" style="--z-card-image: url('assets/menu-shoes.jpg'); --z-card-position: center center"><span>Amanda Murray</span></a>
                 </div>
               </section>
               <section class="menu-panel" data-panel="dresses" aria-label="Dresses menu">
@@ -1049,49 +1049,49 @@
                   <a href="/collections/sets">Sets</a>
                 </div>
                 <div class="zimmer-editorial">
-                  <a class="zimmer-card" href="/collections/dresses" style="--z-card-position: center 52%"><span>Discover Dresses</span></a>
-                  <a class="zimmer-card" href="/collections/event-dressing" style="--z-card-position: center 44%"><span>Event Dressing</span></a>
+                  <a class="zimmer-card" href="/collections/dresses" style="--z-card-image: url('assets/menu-ready.jpg'); --z-card-position: center center"><span>Discover Dresses</span></a>
+                  <a class="zimmer-card" href="/collections/event-dressing" style="--z-card-image: url('assets/menu-spring.jpg'); --z-card-position: center center"><span>Event Dressing</span></a>
                 </div>
               </section>
               <section class="menu-panel" data-panel="denim" aria-label="Denim menu">
                 <div class="zimmer-column"><h3>Denim</h3><a href="/collections/denim">All Denim</a><a href="/collections/denim-dresses">Denim Dresses</a><a href="/collections/denim-bottoms">Denim Bottoms</a><a href="/collections/denim-tops">Denim Tops</a></div>
                 <div class="zimmer-column"><h3>Explore</h3><a href="/collections/new-arrivals">New Arrivals</a><a href="/collections/best-sellers">Best Sellers</a></div>
-                <div class="zimmer-editorial"><a class="zimmer-card" href="/collections/denim" style="--z-card-position: center 44%"><span>Shop Denim</span></a><a class="zimmer-card" href="/collections/new-arrivals" style="--z-card-position: center 65%"><span>New This Week</span></a></div>
+                <div class="zimmer-editorial"><a class="zimmer-card" href="/collections/denim" style="--z-card-image: url('assets/menu-denim.jpg'); --z-card-position: center center"><span>Shop Denim</span></a><a class="zimmer-card" href="/collections/new-arrivals" style="--z-card-image: url('assets/menu-spring.jpg'); --z-card-position: center center"><span>New This Week</span></a></div>
               </section>
               <section class="menu-panel" data-panel="tops" aria-label="Tops menu">
                 <div class="zimmer-column"><h3>Tops</h3><a href="/collections/tops">All Tops</a><a href="/collections/shirts">Shirts</a><a href="/collections/blouses">Blouses</a><a href="/collections/knitwear">Knitwear</a></div>
                 <div class="zimmer-column"><h3>Explore</h3><a href="/collections/sets">Sets</a><a href="/collections/workwear">Workwear</a></div>
-                <div class="zimmer-editorial"><a class="zimmer-card" href="/collections/tops" style="--z-card-position: center 48%"><span>Shop Tops</span></a><a class="zimmer-card" href="/collections/workwear" style="--z-card-position: center 56%"><span>Workwear Edit</span></a></div>
+                <div class="zimmer-editorial"><a class="zimmer-card" href="/collections/tops" style="--z-card-image: url('assets/menu-ready.jpg'); --z-card-position: center center"><span>Shop Tops</span></a><a class="zimmer-card" href="/collections/workwear" style="--z-card-image: url('assets/menu-spring.jpg'); --z-card-position: center center"><span>Workwear Edit</span></a></div>
               </section>
               <section class="menu-panel" data-panel="bottoms" aria-label="Bottoms menu">
                 <div class="zimmer-column"><h3>Bottoms</h3><a href="/collections/bottoms">All Bottoms</a><a href="/collections/skirts">Skirts</a><a href="/collections/pants">Pants</a><a href="/collections/shorts">Shorts</a></div>
                 <div class="zimmer-column"><h3>Explore</h3><a href="/collections/denim">Denim</a><a href="/collections/sets">Sets</a></div>
-                <div class="zimmer-editorial"><a class="zimmer-card" href="/collections/bottoms" style="--z-card-position: center 50%"><span>Shop Bottoms</span></a><a class="zimmer-card" href="/collections/sets" style="--z-card-position: center 62%"><span>Sets</span></a></div>
+                <div class="zimmer-editorial"><a class="zimmer-card" href="/collections/bottoms" style="--z-card-image: url('assets/menu-denim.jpg'); --z-card-position: center center"><span>Shop Bottoms</span></a><a class="zimmer-card" href="/collections/sets" style="--z-card-image: url('assets/menu-ready.jpg'); --z-card-position: center center"><span>Sets</span></a></div>
               </section>
               <section class="menu-panel" data-panel="shoes" aria-label="Shoes menu">
                 <div class="zimmer-column"><h3>Shoes</h3><a href="/pages/shoes">All Shoes</a><a href="/pages/amanda-murray-shoes">Amanda Murray Shoes</a><a href="/pages/shoes-boots">Boots</a><a href="/pages/shoes-heels">Heels</a></div>
                 <div class="zimmer-column"><h3>Details</h3><a href="/pages/shoe-orders">How Shoe Orders Work</a><a href="/pages/size-guide">Shoe Size Guide</a></div>
-                <div class="zimmer-editorial"><a class="zimmer-card" href="/pages/shoes" style="--z-card-position: right 58%"><span>Shop Shoes</span></a><a class="zimmer-card" href="/pages/amanda-murray-shoes" style="--z-card-position: center 55%"><span>Amanda Murray Shoes</span></a></div>
+                <div class="zimmer-editorial"><a class="zimmer-card" href="/pages/shoes" style="--z-card-image: url('assets/menu-shoes.jpg'); --z-card-position: center center"><span>Shop Shoes</span></a><a class="zimmer-card" href="/pages/amanda-murray-shoes" style="--z-card-image: url('assets/menu-shoes.jpg'); --z-card-position: center center"><span>Amanda Murray Shoes</span></a></div>
               </section>
               <section class="menu-panel" data-panel="accessories" aria-label="Accessories menu">
                 <div class="zimmer-column"><h3>Accessories</h3><a href="/collections/accessories">All Accessories</a><a href="/collections/scarves">Scarves</a><a href="/collections/belts">Belts</a><a href="/products/gift-card">Gift Cards</a></div>
                 <div class="zimmer-column"><h3>Explore</h3><a href="/collections/new-arrivals">New Arrivals</a><a href="/collections/best-sellers">Best Sellers</a></div>
-                <div class="zimmer-editorial"><a class="zimmer-card" href="/collections/accessories" style="--z-card-position: center 45%"><span>Shop Accessories</span></a><a class="zimmer-card" href="/products/gift-card" style="--z-card-position: center 60%"><span>Gift Cards</span></a></div>
+                <div class="zimmer-editorial"><a class="zimmer-card" href="/collections/accessories" style="--z-card-image: url('assets/menu-peta.jpg'); --z-card-position: center center"><span>Shop Accessories</span></a><a class="zimmer-card" href="/products/gift-card" style="--z-card-image: url('assets/menu-spring.jpg'); --z-card-position: center center"><span>Gift Cards</span></a></div>
               </section>
               <section class="menu-panel" data-panel="models" aria-label="Shop The Models menu">
                 <div class="zimmer-column"><h3>Shop The Models</h3><a href="/collections/shop-the-models">All Models</a><a href="/collections/jordan">Jordan</a><a href="/collections/keenyah">Keenyah</a><a href="/collections/laura">Laura</a></div>
                 <div class="zimmer-column"><h3>More Models</h3><a href="/collections/estelle">Estelle</a><a href="/collections/lulu">Lulu</a><a href="/collections/lala">Lala</a><a href="/collections/taylor">Taylor</a></div>
-                <div class="zimmer-editorial"><a class="zimmer-card" href="/collections/shop-the-models" style="--z-card-position: center 48%"><span>Shop The Models</span></a><a class="zimmer-card" href="/pages/size-guide" style="--z-card-position: center 64%"><span>Size Guide</span></a></div>
+                <div class="zimmer-editorial"><a class="zimmer-card" href="/collections/shop-the-models" style="--z-card-image: url('assets/menu-ready.jpg'); --z-card-position: center center"><span>Shop The Models</span></a><a class="zimmer-card" href="/pages/size-guide" style="--z-card-image: url('assets/menu-denim.jpg'); --z-card-position: center center"><span>Size Guide</span></a></div>
               </section>
               <section class="menu-panel" data-panel="collections" aria-label="Collections menu">
                 <div class="zimmer-column"><h3>Collections</h3><a href="/collections">All Collections</a><a href="/collections/spring-summer-2026">Spring Summer 2026</a><a href="/collections/neutrals">Neutrals</a><a href="/collections/prints">Prints</a></div>
                 <div class="zimmer-column"><h3>Explore</h3><a href="/collections/peta">PETA Approved</a><a href="/collections/maxi-vs-mini">Maxi vs Mini</a><a href="/collections/bundles">Bundles</a></div>
-                <div class="zimmer-editorial"><a class="zimmer-card" href="/collections/spring-summer-2026" style="--z-card-position: center 40%"><span>Spring Summer 2026</span></a><a class="zimmer-card" href="/collections/peta" style="--z-card-position: center 58%"><span>PETA Approved</span></a></div>
+                <div class="zimmer-editorial"><a class="zimmer-card" href="/collections/spring-summer-2026" style="--z-card-image: url('assets/menu-spring.jpg'); --z-card-position: center center"><span>Spring Summer 2026</span></a><a class="zimmer-card" href="/collections/peta" style="--z-card-image: url('assets/menu-peta.jpg'); --z-card-position: center center"><span>PETA Approved</span></a></div>
               </section>
               <section class="menu-panel" data-panel="sale" aria-label="Sale menu">
                 <div class="zimmer-column"><h3>Sale</h3><a href="/collections/sale">All Sale</a><a href="/collections/sale-dresses">Dresses</a><a href="/collections/sale-tops">Tops</a><a href="/collections/sale-bottoms">Bottoms</a></div>
                 <div class="zimmer-column"><h3>Still Available</h3><a href="/collections/best-sellers">Best Sellers</a><a href="/collections/gift-cards">Gift Cards</a></div>
-                <div class="zimmer-editorial"><a class="zimmer-card" href="/collections/sale" style="--z-card-position: center 46%"><span>Shop Sale</span></a><a class="zimmer-card" href="/collections/best-sellers" style="--z-card-position: center 64%"><span>Best Sellers</span></a></div>
+                <div class="zimmer-editorial"><a class="zimmer-card" href="/collections/sale" style="--z-card-image: url('assets/menu-ready.jpg'); --z-card-position: center center"><span>Shop Sale</span></a><a class="zimmer-card" href="/collections/best-sellers" style="--z-card-image: url('assets/menu-spring.jpg'); --z-card-position: center center"><span>Best Sellers</span></a></div>
               </section>
             </div>
           </header>
@@ -1348,7 +1348,7 @@
       <section class="option-notes" aria-label="Option assessment notes">
         <article class="note">
           <h2>Option A</h2>
-          <p>Closest to Zimmermann. White editorial header, centered larger logo, pipe-separated departments, and a wide text-plus-image dropdown.</p>
+          <p>Closest to Zimmermann. White editorial header, centered larger logo, pipe-separated departments, and a wide text-plus-image dropdown. Sale is shown only to match the reference and can be removed.</p>
         </article>
         <article class="note">
           <h2>Option B</h2>
